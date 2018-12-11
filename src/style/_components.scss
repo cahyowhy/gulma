@@ -1,0 +1,61 @@
+@import "~bulma";
+@import "~bulma-tooltip";
+@import "variable";
+@import "function";
+
+.wrapper-c {
+  display: inline-block;
+  & + .wrapper-c {
+    margin-left: 1rem;
+  }
+}
+
+.g-button, .g-input {
+  &.is-sharped {
+    border-radius: 0px !important;
+  }
+}
+
+.g-checkbox.checkbox {
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+
+  input[type=checkbox] {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    outline: none;
+    z-index: -1;
+    &:checked + .checked {
+      background: $grey-darker url(checkmark($white-ter)) no-repeat center center;
+    }
+    &:not(:checked) + .checked {
+      box-sizing: border-box;
+    }
+  }
+
+  .checked {
+    width: 1.25em;
+    height: 1.25em;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 2px solid $grey-darker;
+    + .control {
+      margin-left: .5rem;
+    }
+  }
+
+  @each $name, $pair in $colors_type {
+    &.is-#{$name} {
+      $color: nth($pair, 1);
+      $color-invert: nth($pair, 2);
+      .checked {
+        border: 2px solid $color;
+      }
+      input[type=checkbox]:checked + .checked {
+        background: $color url(checkmark($color-invert)) no-repeat center center;
+      }
+    }
+  }
+}

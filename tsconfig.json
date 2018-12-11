@@ -1,0 +1,40 @@
+{
+  "types": ["node"],
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "allowJs": true,
+    "newLine": "LF",
+    "rootDir": "src",
+    "outDir": "dist",
+    "target": "es5",
+    "module": "esnext",
+    "sourceMap": false,
+    "declaration": false,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": false,
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "skipDefaultLibCheck": true,
+    "noUnusedParameters": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["dom", "es5", "es2015", "es2015.promise", "es2017"]
+  },
+  "exclude": ["assets", "dist", "node_modules"],
+  "awesomeTypescriptLoaderOptions": {
+    "silent": true,
+    "useWebpackText": true,
+    "useTranspileModule": true,
+    "doTypeCheck": true,
+    "forkChecker": true,
+    "ignoreDiagnostics": []
+  }
+}

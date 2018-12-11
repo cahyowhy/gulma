@@ -1,0 +1,23 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/derived-variables";
+
+$colors: (
+        "white": ($white, $black),
+        "black": ($black, $white),
+        "light": ($light, $light-invert),
+        "grey": ($grey, $light-invert),
+        "dark": ($dark, $dark-invert),
+        "primary": ($primary, $white),
+        "info": ($info, $info-invert),
+        "success": ($success, $success-invert),
+        "warning": ($warning, $warning-invert),
+        "danger": ($danger, $danger-invert),
+        "link": ($link, $link-invert)
+);
+
+$colors_type: (
+        "info": ($info, $info-invert),
+        "success": ($success, $success-invert),
+        "warning": ($warning, $warning-invert),
+        "danger": ($danger, $danger-invert)
+)
