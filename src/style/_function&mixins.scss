@@ -9,9 +9,9 @@
 }
 
 // Encode svg function by http://codepen.io/jakob-e/pen/doMoML
-@function svg-encode($svg){
+@function svg-encode($svg) {
   // Chunk up string in order to avoid "stack level too deep" error
-  $encoded:'';
+  $encoded: '';
   $slice: 2000;
   $index: 0;
   $loops: ceil(str-length($svg)/$slice);
@@ -46,4 +46,39 @@
   $end: '</svg>';
 
   @return svg-encode("#{$start}#{$content}#{$end}");
+}
+
+@function arrow($color, $is_down: true) {
+  $start: '<svg width="12" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">';
+  $content: if($is_down, '<path style="fill:#{$color}" d="M12 24l-8-9h6v-15h4v15h6z"/>', '<path style="fill:#{$color}" d="M12 0l8 9h-6v15h-4v-15h-6z"/>');
+  $end: '</svg>';
+
+  @return svg-encode("#{$start}#{$content}#{$end}");
+}
+
+@function chevron($color, $is_down: true) {
+  $start: '<svg width="12" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">';
+  $content: if($is_down, '<path style="fill:#{$color}" d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/>',
+          '<path style="fill:#{$color}" d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z"/>');
+  $end: '</svg>';
+
+  @return svg-encode("#{$start}#{$content}#{$end}");
+}
+
+@function chevron_vertical($color, $is_right: true) {
+  $start: '<svg width="12" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">';
+  $content: if($is_right, '<path style="fill:#{$color}" d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/>',
+          '<path style="fill:#{$color}" d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/>');
+  $end: '</svg>';
+
+  @return svg-encode("#{$start}#{$content}#{$end}");
+}
+
+@mixin bulma_box_style() {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
+  color: #4a4a4a;
+  display: block;
+  padding: 1.25rem;
 }

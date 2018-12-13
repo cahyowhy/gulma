@@ -97,11 +97,3 @@ export function Created(target: any, propertyKey: string): void {
 export function Directive(target: any, propertyKey: string): void {
   mergeToComponent(target, propertyKey, 'directives', true, true);
 }
-
-/**
- * Custom Filter
- * usage: @Extend function() { return array }
- */
-export function Filter(target: any, propertyKey: string): void {
-  mergeToComponent(target, propertyKey, 'filters', true, true);
-}

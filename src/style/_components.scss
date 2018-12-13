@@ -1,7 +1,7 @@
 @import "~bulma";
 @import "~bulma-tooltip";
 @import "variable";
-@import "function";
+@import "function&mixins";
 
 .wrapper-c {
   display: inline-block;
@@ -56,6 +56,176 @@
       input[type=checkbox]:checked + .checked {
         background: $color url(checkmark($color-invert)) no-repeat center center;
       }
+    }
+  }
+}
+
+.g-table {
+  position: relative;
+  .icon-chevron, .icon-arrow, .icon_chevron_v {
+    display: inline-block;
+    width: 12px;
+    height: 18px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .icon-arrow {
+    background-image: url(arrow($grey-darker));
+    &.is-up {
+      background-image: url(arrow($grey-darker, false));
+    }
+  }
+  .icon_chevron_v {
+    background-image: url(chevron_vertical($grey-darker));
+    &.is-left {
+      background-image: url(chevron_vertical($grey-darker, false));
+    }
+  }
+  thead {
+    th {
+      .icon-arrow {
+        margin-left: .5rem;
+      }
+      a {
+        display: flex;
+        align-items: center;
+        span {
+          color: $grey-darker;
+        }
+        cursor: auto;
+      }
+      &.has-pointer {
+        &:hover {
+          background-color: $white-ter;
+        }
+        a {
+          cursor: pointer;
+        }
+      }
+      .inner-th.has-text-centered {
+        a {
+          justify-content: center;
+        }
+      }
+      .inner-th.has-text-left {
+        a {
+          justify-content: flex-start;
+        }
+      }
+      .inner-th.has-text-right {
+        a {
+          justify-content: flex-end;
+        }
+      }
+    }
+    @each $name, $pair in $colors_type {
+      &.is-#{$name} {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+        background-color: $color;
+        th a span {
+          color: $color-invert;
+        }
+        .icon-arrow {
+          background-image: url(arrow($color-invert));
+          &.is-up {
+            background-image: url(arrow($color-invert, false));
+          }
+        }
+        th.has-pointer:hover {
+          background-color: lighten($color, 30%);
+        }
+      }
+    }
+  }
+  .data-empty {
+    min-height: 150px;
+  }
+  td.td-detail {
+    padding: 0;
+    box-shadow: inset 0 3px 10px $white-ter;
+    position: relative;
+    .td-detail-wrapper {
+      text-align: center;
+      position: relative;
+      padding: 0 1rem 1rem;
+      > a {
+        opacity: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      &.is-narrowed {
+        padding: 0;
+        position: absolute;
+        margin: 0 auto;
+        width: 100%;
+        bottom: 0;
+        .slot-wrp {
+          display: none;
+        }
+        > a {
+          border-top-left-radius: 2px;
+          border-top-right-radius: 2px;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+      .icon-chevron {
+        background-image: url(chevron(white));
+        &.is-up {
+          background-image: url(chevron(white, false));
+        }
+      }
+    }
+  }
+  tr:hover + tr .td-detail a, tr .td-detail:hover a {
+    opacity: 1.0;
+  }
+  @media screen and (max-width: 768px) {
+    table.has-responsive-table {
+      thead {
+        display: none;
+      }
+      tbody {
+        tr {
+          display: block;
+          @include bulma_box_style;
+          &:not(:last-child) {
+            margin-bottom: 2rem;
+          }
+          td {
+            display: flex;
+            justify-content: space-between;
+            &:not(.data-empty)::before {
+              content: attr(data-label);
+              font-weight: bold;
+            }
+            &.data-empty {
+              align-items: center;
+              justify-content: center;
+            }
+            span:only-child {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+  }
+  .loading-animation {
+    z-index: 1;
+    text-align: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .7);
+    > i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $info;
     }
   }
 }

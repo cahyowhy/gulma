@@ -222,7 +222,7 @@ if (process.env.BUNDLE) {
       },
       plugins: (() => {
         const plugins = [
-          new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /id|^en/),
+          new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /^en/),
           new FriendlyErrorsPlugin(),
           new webpack.NoEmitOnErrorsPlugin(),
           new webpack.DefinePlugin({

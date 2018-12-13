@@ -13,7 +13,8 @@ export default [
     {
         path: '/', component: loadPage('Layout'),
         children: [
-            {path: '/', component: loadPage('Index')}
+            {path: '/', component: loadPage('Index')},
+            {path: 'documentation', component: loadPage('Documentation')},
         ]
     }
 ];
