@@ -12,8 +12,6 @@
 <script lang="ts">
 	import {Component, Vue, Prop, Watch} from 'annotation';
 
-	const TYPE = ['info', 'success', 'warning', 'danger', ''];
-
 	@Component
 	export default class GCheckbox extends Vue {
 
@@ -21,7 +19,7 @@
 		private name: string;
 
 		@Prop()
-		private value: any;
+		private value;
 
 		@Prop({default: true})
 		private trueValue: any;
@@ -44,8 +42,7 @@
 		}
 
 		@Prop({
-			default: '',
-			validator: (val) => TYPE.indexOf(val) !== -1
+			default: ''
 		})
 		private type: string;
 

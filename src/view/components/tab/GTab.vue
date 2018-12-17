@@ -28,9 +28,6 @@
 	import GLink from '../link/GLink';
 	import QueryString from '../../../util/QueryString';
 
-	const SIZE = ['small', 'medium', 'large', ''];
-	const POSITION = ['centered', '', 'right'];
-
 	@Component({
 		components: {GLink}
 	})
@@ -39,17 +36,10 @@
 		@Prop({default: [], required: true})
 		private links: Array<any>;
 
-		@Prop({
-			default: '',
-			validator: (val) => POSITION.indexOf(val) !== -1
-		})
+		@Prop({default: ''})
 		private position: string;
 
-		@Prop({
-			default: '',
-			validator: (val) => SIZE.indexOf(val) !== -1
-
-		})
+		@Prop({default: ''})
 		private size: string;
 
 		private currentTab: number = 0;
@@ -72,7 +62,7 @@
 		}
 
 		private mounted() {
-            const currentIndex = this.links.findIndex(link => this.matchUrlQuery(link.to)) || 0;
+			const currentIndex = this.links.findIndex(link => this.matchUrlQuery(link.to)) || 0;
 			this.hideSomeTab(this.useAsLink ? currentIndex : 0);
 		}
 

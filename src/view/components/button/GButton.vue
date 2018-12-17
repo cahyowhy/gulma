@@ -11,35 +11,11 @@
 </template>
 
 <script lang="ts">
-	import {Component, Vue, Prop} from "annotation";
-
-	const TYPE = ['white', 'light', 'dark', 'black', 'text', 'primary', 'link',
-		'info', 'success', 'warning', 'danger', ''];
-	const SIZE = ['small', 'medium', 'large', ''];
-	const SHAPE = ['rounded', 'sharped', ''];
+	import {Component, Mixin, Prop} from "annotation";
+	import FormPropMixins from '../../../util/FormPropMixins';
 
 	@Component
-	export default class Button extends Vue {
-
-		@Prop({
-			default: '',
-			validator: (val) => TYPE.indexOf(val) !== -1
-		})
-		private type: string;
-
-		@Prop({
-			default: '',
-			validator: (val) => SIZE.indexOf(val) !== -1
-
-		})
-		private size: string;
-
-		@Prop({
-			default: '',
-			validator: (val) => SHAPE.indexOf(val) !== -1
-
-		})
-		private shape: string;
+	export default class Button extends Mixin(FormPropMixins) {
 
 		@Prop({default: ''})
 		private tooltipText: string;
@@ -47,18 +23,22 @@
 		@Prop({default: false})
 		private isLoading: boolean;
 
-		@Prop({default: ''})
-		private tooltipClassName: string;
+		@Prop({default: false})
+		private isTooltipActive: boolean;
 
 		@Prop({default: ''})
 		private value: string;
 
 		private get tooltipClassNameFinal() {
-			const {tooltipText, tooltipClassName} = this;
+			const {tooltipText, value, type, position, isTooltipActive} = this;
+			const typeClassName = type ? ('is-tooltip-' + type) : '';
+			const positionClassName = position ? ('is-tooltip-' + position) : '';
+			const tooltipClassNames = [
+				'tooltip', typeClassName, positionClassName,
+				{'is-tooltip-multiline': tooltipText.length > 60}, {'is-tooltip-active': isTooltipActive}
+			];
 
-			// by default if tooltipText length >= 60 apply is-tooltip-multiline class name
-			return tooltipText ? `tooltip ${tooltipClassName} ${tooltipText.length > 59 ?
-				'is-tooltip-multiline' : ''}` : '';
+			return tooltipText && !value.length ? tooltipClassNames : '';
 		}
 
 		private get className() {
@@ -67,10 +47,11 @@
 			const sizeClassName = size ? ('is-' + size) : '';
 			const shapeClassName = shape ? ('is-' + shape) : '';
 			const loadingClassName = isLoading ? 'is-loading' : '';
-			const tooltipClassName = value ? '' : tooltipClassNameFinal;
 
-			return [typeClassName, sizeClassName, tooltipClassName, loadingClassName, shapeClassName]
-				.reduce((accu, item) => accu + (item ? (' ' + item) : ''), 'button g-button');
+			return [
+				'button g-button', typeClassName, sizeClassName, shapeClassName,
+				tooltipClassNameFinal, {'is-loading': isLoading}
+			];
 		}
 	}
 </script>

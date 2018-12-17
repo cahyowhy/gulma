@@ -27,6 +27,12 @@
 		@Prop({default: 'text'})
 		private inputType: string;
 
+		@Prop({default: ''})
+		private label: string;
+
+		@Prop({default: ''})
+		private message: string;
+
 		@Prop({default: false})
 		private isFocused: boolean;
 
@@ -35,6 +41,9 @@
 
 		@Prop({default: false})
 		private isLoading: boolean;
+
+		@Prop({default: false})
+		private isExpanded: boolean;
 
 		@Watch('value')
 		private onValueChange(value) {
@@ -69,12 +78,13 @@
 		}
 
 		private get controlClassName() {
-			const {isLoading, size, $slots} = this;
+			const {isLoading, size, isExpanded, $slots} = this;
 			const {iconLeft, iconRight} = $slots;
 
 			return [{
 				'is-loading': isLoading,
 				'has-icons-left': iconLeft,
+                'is-expanded': isExpanded,
 				'has-icons-right': iconRight
 			}, (size ? ('is-' + size) : '')];
 		}

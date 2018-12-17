@@ -77,34 +77,40 @@
                         <g-checkbox v-model="checkboxMultiVal" native-value="Arjuna">
                             Arjuna
                         </g-checkbox>
+                        <g-checkbox v-model="checkboxMultiVal" :indeterminate="true" native-value="Sadewa">
+                            Sadewa
+                        </g-checkbox>
                     </g-field>
-                    <g-field :isHorizontal="true" label="Isi dengan string" type="success"
-                             message="Brown fox cekk">
-                        <g-input v-model="textContoh" shape="sharped">
+                    <g-field :isHorizontal="true" label="Isi dengan string">
+                        <g-input v-model="textContoh" shape="sharped"
+                                 :type="textContoh.length ? 'success' : 'danger'"
+                                 label="Label pertama" message="Oke value">
                             <i slot="iconLeft" class="fab fa-facebook"></i>
                             <i slot="iconRight" class="fab fa-twitter"></i>
                         </g-input>
-                        <g-input v-model="textContoh2" shape="rounded">
+                        <g-input v-model="textContoh2" shape="rounded"
+                                 :type="textContoh2.length ? 'success' : 'danger'"
+                                 label="Label kedua" message="Oke value">
                             <i slot="iconLeft" class="fab fa-facebook"></i>
                             <i slot="iconRight" class="fab fa-twitter"></i>
                         </g-input>
                     </g-field>
                     <g-field :isGrouped="true" type="success">
-                        <g-input v-model="textContoh" shape="sharped">
+                        <g-input v-model="textContoh" shape="sharped" :is-expanded="true">
                             <i slot="iconLeft" class="fab fa-facebook"></i>
                             <i slot="iconRight" class="fab fa-twitter"></i>
                         </g-input>
                         <div class="control">
-                            <g-button type="info">Oke</g-button>
+                            <g-button type="info" position="left" tooltip-text="ialah bangsat">Oke</g-button>
                         </div>
                     </g-field>
-                    <g-field :hasAddons="true" type="success">
+                    <g-field :hasAddons="true" type="success" position="right">
                         <g-input v-model="textContoh" shape="sharped">
                             <i slot="iconLeft" class="fab fa-facebook"></i>
                             <i slot="iconRight" class="fab fa-twitter"></i>
                         </g-input>
                         <div class="control">
-                            <g-button type="info">Oke</g-button>
+                            <g-button :isLoading="true" type="info">Oke</g-button>
                         </div>
                     </g-field>
                 </g-tab-content>

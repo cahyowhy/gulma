@@ -33,6 +33,9 @@
     &:not(:checked) + .checked {
       box-sizing: border-box;
     }
+    &:indeterminate + .checked {
+      background: $grey-darker url(indeterminate($white-ter)) no-repeat center center;
+    }
   }
 
   .checked {
@@ -55,6 +58,9 @@
       }
       input[type=checkbox]:checked + .checked {
         background: $color url(checkmark($color-invert)) no-repeat center center;
+      }
+      input[type=checkbox]:indeterminate + .checked {
+        background: $color url(indeterminate($color-invert)) no-repeat center center;
       }
     }
   }
