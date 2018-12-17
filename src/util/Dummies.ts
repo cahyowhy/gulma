@@ -5,7 +5,7 @@
 const dummyTabsLinks: Function = (applyUrl: boolean = true) => {
 	return new Array(4).fill(location.pathname)
 		.map((item: string, index: number) => {
-			let name = item + `-${index}`;
+			let name = item + ` ${index}`;
 			name = name.substring(1);
 			
 			let param = {name};

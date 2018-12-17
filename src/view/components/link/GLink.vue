@@ -23,7 +23,7 @@
         private targetBlank: boolean;
 
         private get hasVueRouter() {
-            return this.$router !== undefined && this.$router !== undefined;
+            return this.$router !== undefined && this.$router !== undefined && this.to;
         }
     }
 </script>

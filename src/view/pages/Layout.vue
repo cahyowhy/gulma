@@ -111,6 +111,7 @@
         }
         .content-wrapper {
             margin-top: 5rem;
+            min-height: calc(100vh - 300px);
         }
         > footer.footer {
             padding: 3rem 1.5rem;

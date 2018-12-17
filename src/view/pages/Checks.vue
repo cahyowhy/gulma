@@ -2,82 +2,119 @@
 <template>
     <div class="check-wrapper">
         <g-tab :links="links">
-            <div slot="tab-content-0" slot-scope="{index, active}">
-                <g-table :isLoading="isLoading" :columns="columns" :bordered="true" :datas="userDatas" :fullWidth="true"
-                         :info="true" :usePaging="true" :perPage="perpage" :totalData="100" :frontEndPagination="true">
-                    <template slot="thead" slot-scope="{colSpan, sortFn, isSortAscending, currentSorting}">
-                        <tr>
-                            <g-table-column-head :colspan="colSpan" position="centered">
-                                <span>Contoh custom thead</span>
-                            </g-table-column-head>
-                        </tr>
-                        <tr>
-                            <g-table-column-head>
-                                <span>No. </span>
-                            </g-table-column-head>
-                            <template v-for="(column, index) in columns">
-                                <g-table-column-head :position="column.position" @click="sortFn(index, column.key)"
-                                                     :sorting="column.sorting && currentSorting === index"
-                                                     :width="column.width" :isSortAscending="isSortAscending">
-                                    <span>{{column.name}}</span>
-                                </g-table-column-head>
-                            </template>
-                        </tr>
-                    </template>
-                    <template slot-scope="{data, index, currentPage}">
-                        <g-table-column :position="columns[0].position" :label="columns[0].name">
-                            <div class="user-info-wrapper">
-                                <div class="image is-48x48">
-                                    <img :src="users[fixedIndex(index, currentPage)].picture" class="is-rounded">
+            <template slot="tab-item" slot-scope="{link}">
+                <span class="icon">
+                    <i class="fas fa-smile-beam"></i>
+                </span>
+                <span>{{link.name}}</span>
+            </template>
+            <template slot-scope="{index, active}">
+                <g-tab-content>
+                    <g-table :isLoading="isLoading" :columns="columns" :bordered="true" :datas="userDatas"
+                             :fullWidth="true"
+                             :info="true" :usePaging="true" :perPage="perpage" :totalData="100" @changePage="doFind()">
+                        <template slot-scope="{data, index, currentPage}">
+                            <g-table-column :position="columns[0].position" :label="columns[0].name">
+                                <div class="user-info-wrapper">
+                                    <div class="image is-48x48">
+                                        <img :src="users[index].picture" class="is-rounded">
+                                    </div>
+                                    <span>{{data.name}}</span>
                                 </div>
-                                <span>{{data.name}}</span>
-                            </div>
-                        </g-table-column>
-                        <g-table-column :position="columns[1].position" :label="columns[1].name">{{data.dob}}
-                        </g-table-column>
-                        <g-table-column :position="columns[2].position" :label="columns[2].name">{{data.email}}
-                        </g-table-column>
-                        <g-table-column :position="columns[3].position" :label="columns[3].name">{{data.phone}}
-                        </g-table-column>
-                        <g-table-column :position="columns[4].position" :label="columns[4].name">{{data.location}}
-                        </g-table-column>
-                    </template>
-                    <template slot="detail" slot-scope="{data, index, currentPage}">
-                        <article class="media user-detail">
-                            <figure class="media-left">
-                                <p class="image is-64x64">
-                                    <img :src="users[fixedIndex(index, currentPage)].picture">
-                                </p>
-                            </figure>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p class="title is-5">{{data.name}}</p>
-                                    <p>{{data.email}}</p>
-                                    <p>{{data.dob}}</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros,
-                                        eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio
-                                        quis feugiat facilisis.</p>
+                            </g-table-column>
+                            <g-table-column :position="columns[1].position" :label="columns[1].name">{{data.dob}}
+                            </g-table-column>
+                            <g-table-column :position="columns[2].position" :label="columns[2].name">{{data.email}}
+                            </g-table-column>
+                            <g-table-column :position="columns[3].position" :label="columns[3].name">{{data.phone}}
+                            </g-table-column>
+                            <g-table-column :position="columns[4].position" :label="columns[4].name">{{data.location}}
+                            </g-table-column>
+                        </template>
+                        <template slot="detail" slot-scope="{data, index, currentPage}">
+                            <article class="media user-detail">
+                                <figure class="media-left">
+                                    <p class="image is-64x64">
+                                        <img :src="users[index].picture">
+                                    </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p class="title is-5">{{data.name}}</p>
+                                        <p>{{data.email}}</p>
+                                        <p>{{data.dob}}</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna
+                                            eros,
+                                            eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus
+                                            odio
+                                            quis feugiat facilisis.</p>
+                                    </div>
                                 </div>
+                            </article>
+                        </template>
+                        <template slot="empty">
+                            <div class="has-text-centered">
+                                <p><i class="fas fa-sad-tear fa-3x"></i></p>
+                                <p>No data displayed</p>
                             </div>
-                        </article>
-                    </template>
-                    <template slot="empty">
-                        <div class="has-text-centered">
-                            <p><i class="fas fa-sad-tear fa-3x"></i></p>
-                            <p>No data displayed</p>
+                        </template>
+                    </g-table>
+                </g-tab-content>
+                <g-tab-content>
+                    <p>Contoh form control</p>
+                    <g-field label="Cek label" :isHorizontal="true" :type="checkbox1 ? 'success' : 'warning'">
+                        <g-checkbox v-model="checkbox1">Checkbox biasa value {{checkbox1}}</g-checkbox>
+                        <g-checkbox class="is-expanded" v-model="checkbox1">Checkbox biasa value {{checkbox1}}
+                        </g-checkbox>
+                    </g-field>
+                    <g-field :isHorizontal="true" label="Cek multi oke">
+                        <g-checkbox v-model="checkboxMultiVal" native-value="Karina">
+                            Karina
+                        </g-checkbox>
+                        <g-checkbox v-model="checkboxMultiVal" native-value="Sembadra">
+                            Sembadra
+                        </g-checkbox>
+                        <g-checkbox v-model="checkboxMultiVal" native-value="Arjuna">
+                            Arjuna
+                        </g-checkbox>
+                    </g-field>
+                    <g-field :isHorizontal="true" label="Isi dengan string" type="success"
+                             message="Brown fox cekk">
+                        <g-input v-model="textContoh" shape="sharped">
+                            <i slot="iconLeft" class="fab fa-facebook"></i>
+                            <i slot="iconRight" class="fab fa-twitter"></i>
+                        </g-input>
+                        <g-input v-model="textContoh2" shape="rounded">
+                            <i slot="iconLeft" class="fab fa-facebook"></i>
+                            <i slot="iconRight" class="fab fa-twitter"></i>
+                        </g-input>
+                    </g-field>
+                    <g-field :isGrouped="true" type="success">
+                        <g-input v-model="textContoh" shape="sharped">
+                            <i slot="iconLeft" class="fab fa-facebook"></i>
+                            <i slot="iconRight" class="fab fa-twitter"></i>
+                        </g-input>
+                        <div class="control">
+                            <g-button type="info">Oke</g-button>
                         </div>
-                    </template>
-                </g-table>
-            </div>
-            <div slot="tab-content-1" slot-scope="{index, active}">
-                <p>Index {{index}}</p>
-            </div>
-            <div slot="tab-content-2" slot-scope="{index, active}">
-                <p>Index {{index}}</p>
-            </div>
-            <div slot="tab-content-3" slot-scope="{index, active}">
-                <p>Index {{index}}</p>
-            </div>
+                    </g-field>
+                    <g-field :hasAddons="true" type="success">
+                        <g-input v-model="textContoh" shape="sharped">
+                            <i slot="iconLeft" class="fab fa-facebook"></i>
+                            <i slot="iconRight" class="fab fa-twitter"></i>
+                        </g-input>
+                        <div class="control">
+                            <g-button type="info">Oke</g-button>
+                        </div>
+                    </g-field>
+                </g-tab-content>
+                <g-tab-content>
+                    <p>Index {{index}}</p>
+                </g-tab-content>
+                <g-tab-content>
+                    <p>Index {{index}}</p>
+                </g-tab-content>
+            </template>
         </g-tab>
     </div>
 </template>
@@ -110,8 +147,16 @@
 
 		private perpage: number = 10;
 
+		private checkbox1: boolean = true;
+
+		private checkboxMultiVal: Array<any> = [];
+
+		private textContoh: string = '';
+
+		private textContoh2: string = '';
+
 		private mounted() {
-			this.doFind(100);
+			this.doFind();
 		}
 
 		private get userDatas(): Array<any> {
@@ -127,10 +172,6 @@
 			}
 
 			this.isLoading = false;
-		}
-
-		private fixedIndex(index: number = 0, currentPage: number = 1) {
-			return (this.perpage * (currentPage - 1)) + index;
 		}
 	}
 </script>

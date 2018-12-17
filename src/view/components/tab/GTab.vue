@@ -7,8 +7,8 @@
                     :class="(useAsLink ? matchUrlQuery(link.to) : (currentTab === index)) ? 'is-active' : ''">
                     <template v-if="useAsLink">
                         <g-link :to="link.to" @click.native="onMoveTab(index)">
-                            <div v-if="customTabItem" class="wrapper-c">
-                                <slot :name="`tab-item-${index}`" :active="currentTab === index"></slot>
+                            <div v-if="$scopedSlots['tab-item'] || $slots['tab-item']" class="wrapper-c">
+                                <slot name="tab-item" :link="link" :index="index"></slot>
                             </div>
                             <span v-else>{{link.name}}</span>
                         </g-link>
@@ -17,13 +17,8 @@
                 </li>
             </ul>
         </div>
-        <div class="tab-content">
-            <div class="tab-content-item" v-for="(link, index) in links" :key="`tab-${index}`">
-                <div v-if="useAsLink ? matchUrlQuery(link.to) : (currentTab === index)" class="tab-content-iner">
-                    <slot :name="`tab-content-${index}`" :index="index"
-                          :active="useAsLink ? matchUrlQuery(link.to) : (currentTab === index)"></slot>
-                </div>
-            </div>
+        <div class="tab-content" ref="tabContent">
+            <slot :index="index" :active="active"></slot>
         </div>
     </div>
 </template>
@@ -43,9 +38,6 @@
 
 		@Prop({default: [], required: true})
 		private links: Array<any>;
-
-		@Prop({default: false})
-		private customTabItem: boolean;
 
 		@Prop({
 			default: '',
@@ -79,9 +71,28 @@
 				accu + (item ? (item + ' ') : ''), 'tabs ');
 		}
 
+		private mounted() {
+            const currentIndex = this.links.findIndex(link => this.matchUrlQuery(link.to)) || 0;
+			this.hideSomeTab(this.useAsLink ? currentIndex : 0);
+		}
+
 		private onMoveTab(index) {
 			this.currentTab = index;
 			this.$emit('change', index);
+
+			this.hideSomeTab(index);
+		}
+
+		private hideSomeTab(index) {
+			Array.from(this.$refs.tabContent && this.$refs.tabContent.children).forEach((item, idxChild) => {
+				if (item instanceof Node) {
+					if (idxChild === index) {
+						item.classList.remove('is-hidden');
+					} else {
+						item.classList.add('is-hidden');
+					}
+				}
+			});
 		}
 	}
 </script>

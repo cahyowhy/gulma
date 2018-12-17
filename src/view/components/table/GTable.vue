@@ -27,13 +27,14 @@
             </tr>
             </thead>
             <tbody>
-            <template v-for="(data, index) in datasCloned">
+            <template v-for="(data, index) in datasCloned.filter(item => item.visible)">
                 <tr>
                     <td v-if="showNumbering" class="has-text-centered is-number" data-label="No.">
-                        <span>{{index+1}}</span>
+                        <span>{{indexNumbering(index + 1)}}</span>
                     </td>
-                    <slot v-if="$scopedSlots.default || $slots.default" :data="data" :index="index" :currentPage="currentPage"/>
-                    <template v-else v-for="(value, key, indexChild) in data">
+                    <slot v-if="$scopedSlots.default || $slots.default" :data="omitProperties(data)"
+                          :index="datasCloned[indexNumbering(index, true)].index" :currentPage="currentPage"/>
+                    <template v-else v-for="(value, key, indexChild) in omitProperties(data)">
                         <g-table-column :label="columns[indexChild].name" :isSortAscending="isSortAscending"
                                         :position="columns[indexChild] && columns[indexChild].position">
                             <span>{{value}}</span>
@@ -47,7 +48,8 @@
                                 <i :class="`icon-chevron ${detailsOpened[index] ? '' : 'is-up'}`"></i>
                             </a>
                             <div class="slot-wrp">
-                                <slot name="detail" :data="data" :index="index" :currentPage="currentPage"></slot>
+                                <slot name="detail" :index="datasCloned[indexNumbering(index, true)].index"
+                                      :currentPage="currentPage" :data="omitProperties(data)"/>
                             </div>
                         </div>
                     </td>
@@ -99,7 +101,7 @@
 
 <script lang="ts">
 	import {Component, Prop, Mixin, Watch} from "annotation";
-	import {cloneArray} from '../../../util/Underscore';
+	import {cloneArray, omit} from '../../../util/Underscore';
 	import PagingMixin from './PagingMixin';
 	import GTableColumnHead from './GTableColumnHead';
 	import GTableColumn from './GTableColumn';
@@ -155,7 +157,7 @@
 		private datas: Array<any>;
 		
 		private datasCloned: Array<any> = [];
-		
+
 		private currentSorting: any = null;
 		
 		private isSortAscending: boolean = true;
@@ -164,20 +166,54 @@
 
 		private forceRenderDetail: boolean = true;
 
-		private get computeDatasWithCurrentPage() {
-			return [this.datas, this.currentPage];
-        }
-		
-		@Watch('computeDatasWithCurrentPage', {immediate: true})
-		private onDatasChange([datas, currentPage]) {
-			let datasFinals = Array.isArray(datas) ? datas : [];
-			if (this.frontEndPagination && this.perPage && this.usePaging) {
-				const start = (currentPage - 1) * this.perPage;
-				datasFinals = datasFinals.slice(start, (start + this.perPage));
-			}
+		@Watch('datas', {immediate: true})
+		private onDataChange(datas) {
+			this.datasCloned = datas.map((item, index) => {
+				item.index = index;
+				item.visible = this.usePaging ? (index < this.perPage) : true;
 
-			this.datasCloned = datasFinals;
+				return item;
+			});
+
 			this.detailsOpened = new Array<boolean>((this.datasCloned || []).length).fill(false);
+		}
+
+		@Watch('currentPage')
+		private onPageHasChange() {
+			this.applyPagination();
+			this.reRenderDetail();
+		}
+
+		private applyPagination() {
+			const {start, end, frontEndPagination} = this.pageRange;
+			if (frontEndPagination && perPage && usePaging) {
+				this.datasCloned.map((item, index) => {
+					item.visible = index >= start && index < end;
+
+					return item;
+				});
+			}
+		}
+
+		private reRenderDetail() {
+			if (this.$scopedSlots.detail || this.$slots.detail) {
+				this.forceRenderDetail = false;
+				this.detailsOpened = this.detailsOpened.map((item) => {
+					item = false;
+
+					return item;
+				});
+
+				this.$nextTick(() => this.forceRenderDetail = true);
+			}
+		}
+
+		private get pageRange() {
+			const {perPage, currentPage} = this;
+			const start = (currentPage - 1) * perPage;
+			const end = start + perPage;
+
+			return {start, end};
 		}
 		
 		private get colSpan() {
@@ -188,12 +224,9 @@
 			const {bordered, striped, narrow, fullWidth, hoverable, responsiveTable} = this;
 			
 			return {
-				'is-narrow': narrow,
-				'is-striped': striped,
-				'is-bordered': bordered,
-				'is-fullwidth': fullWidth,
-				'is-hoverable': hoverable,
-				'has-responsive-table': responsiveTable
+				'is-narrow': narrow, 'is-striped': striped,
+				'is-bordered': bordered, 'is-fullwidth': fullWidth,
+				'is-hoverable': hoverable, 'has-responsive-table': responsiveTable
 			}
 		}
 		
@@ -209,25 +242,44 @@
 		}
 
 		private expandDetail(index) {
-			this.forceRenderDetail = false;
 			this.detailsOpened[index] = !this.detailsOpened[index];
+			this.forceRenderDetail = false;
 			this.$nextTick(() => this.forceRenderDetail = true);
+		}
+
+		private indexNumbering(index, isFindProps: boolean = false) {
+			const pagingIndex = ((this.currentPage - 1) * this.perPage) + index;
+
+			return isFindProps ? (this.frontEndPagination ? pagingIndex : index) :
+				this.usePaging ? pagingIndex : index;
 		}
 		
 		private onSortBy(index: number, key: string) {
-			if (key && this.datasCloned[0][key]) {
-				this.isSortAscending = this.currentSorting === index ? !this.isSortAscending : true;
-				this.currentSorting = index;
-				
-				this.datasCloned = this.datasCloned.sort((a, b) => {
+			const hasListener = this.$listeners && this.$listeners.sort;
+			this.isSortAscending = this.currentSorting === index ? !this.isSortAscending : true;
+			this.currentSorting = index;
+
+			if (key && this.datasCloned[0] && this.datasCloned[0][key] && !hasListener) {
+				const {start, end} = this.pageRange;
+				const sortFn = (a, b) => {
 					if (typeof a[key] === 'string') {
 						return this.isSortAscending ? (a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0) :
 							(a[key] > b[key] ? -1 : a[key] < b[key] ? 1 : 0);
 					}
-					
+
 					return this.isSortAscending ? a[key] - b[key] : b[key] - a[key];
-				});
+				};
+
+				this.datasCloned = this.datasCloned.sort(sortFn);
+				this.applyPagination();
+				this.reRenderDetail();
 			}
+
+			this.$emit('sort', (this.isSortAscending ? 'asc' : 'desc'), key);
+		}
+
+		private omitProperties(data: any = {}) {
+			return omit(data, ['index', 'visible']);
 		}
 	}
 </script>
