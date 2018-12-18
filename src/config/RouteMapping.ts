@@ -9,12 +9,16 @@
 const loadPage: Function = (file: string) => () => import('../view/pages/' + file).catch(console.log);
 
 export default [
-    /** route for authenticating on process login user */
-    {
-        path: '/', component: loadPage('Layout'),
-        children: [
-            {path: '/', component: loadPage('Index')},
-            {path: 'documentation', component: loadPage('Documentation')},
-        ]
-    }
+	/** route for authenticating on process login user */
+	{
+		path: '/', component: loadPage('Layout'),
+		children: [
+			{path: '/', component: loadPage('Index')},
+			{
+				path: 'documentation', component: loadPage('Documentation'), children: [
+					{path: 'form-field', component: loadPage('documentations/FormField')}
+				]
+			},
+		]
+	}
 ];

@@ -144,7 +144,7 @@
 		@Prop({default: true})
 		private responsiveTable: boolean;
 		
-		@Prop({default: [], required: true})
+		@Prop({default: []})
 		private columns: Array<string>;
 		
 		@Prop({default: true})

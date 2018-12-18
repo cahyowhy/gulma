@@ -15,7 +15,7 @@
 	@Component
 	export default class GCheckbox extends Vue {
 
-		@Prop({default: '', required: true})
+		@Prop({default: ''})
 		private name: string;
 
 		@Prop()
@@ -27,7 +27,7 @@
 		@Prop({default: false})
 		private falseValue: any;
 
-		@Prop({default: false})
+		@Prop()
 		private disabled: boolean;
 
 		@Prop({default: false})

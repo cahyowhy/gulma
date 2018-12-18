@@ -18,4 +18,16 @@ export default class FormPropMixins extends Vue {
 	
 	@Prop({default: ''})
 	public shape: string;
+	
+	public isFocused: boolean = false;
+	
+	public onBlur($event: any) {
+		this.isFocused = false;
+		this.$emit('blur', $event);
+	}
+	
+	public onFocus($event: any) {
+		this.isFocused = true;
+		this.$emit('focus', $event);
+	}
 }

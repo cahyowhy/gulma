@@ -23,10 +23,13 @@ export default class GFieldbody extends Mixin(FormPropMixins) {
 			const attr = {props: {message, type, isNarrow, size, position, shape}};
 			if (isNarrow) attr['class'] = 'is-narrow';
 			
-			if (tag === 'g-input') {
+			// set label and message for props like
+			// type (colors), size on field child
+			if (tag === 'g-input' || tag === 'g-select') {
 				attr.props['label'] = propsData.label;
 				attr.props['message'] = propsData.message;
 				attr.props['type'] = propsData.type;
+				attr.props['size'] = propsData.size;
 			}
 			
 			return createElement(GField, attr, [item]);

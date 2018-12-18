@@ -5,10 +5,10 @@
  */
 
 export default {
-    
-    'text': {},
-    
-    'placeholder': {},
-    
-    'button': {}
+	
+	'text': {},
+	
+	'placeholder': {},
+	
+	'button': {}
 }

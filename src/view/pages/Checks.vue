@@ -61,13 +61,12 @@
                     </g-table>
                 </g-tab-content>
                 <g-tab-content>
-                    <p>Contoh form control</p>
-                    <g-field label="Cek label" :isHorizontal="true" :type="checkbox1 ? 'success' : 'warning'">
+                    <g-field label="Checkbox Horizontal" :isHorizontal="true" :type="checkbox1 ? 'success' : 'warning'">
                         <g-checkbox v-model="checkbox1">Checkbox biasa value {{checkbox1}}</g-checkbox>
                         <g-checkbox class="is-expanded" v-model="checkbox1">Checkbox biasa value {{checkbox1}}
                         </g-checkbox>
                     </g-field>
-                    <g-field :isHorizontal="true" label="Cek multi oke">
+                    <g-field :isHorizontal="true" label="Multiple Select Checkbox">
                         <g-checkbox v-model="checkboxMultiVal" native-value="Karina">
                             Karina
                         </g-checkbox>
@@ -81,7 +80,15 @@
                             Sadewa
                         </g-checkbox>
                     </g-field>
-                    <g-field :isHorizontal="true" label="Isi dengan string">
+                    <g-field :isHorizontal="true" label="Input horizontal">
+                        <g-input v-model="textContoh" shape="rounded"
+                                 :type="textContoh.length ? 'success' : 'danger'"
+                                 label="Label pertama" message="Oke value">
+                            <i slot="iconLeft" class="fab fa-facebook"></i>
+                            <i slot="iconRight" class="fab fa-twitter"></i>
+                        </g-input>
+                    </g-field>
+                    <g-field :isHorizontal="true" label="Multi input horizontal">
                         <g-input v-model="textContoh" shape="sharped"
                                  :type="textContoh.length ? 'success' : 'danger'"
                                  label="Label pertama" message="Oke value">
@@ -95,23 +102,15 @@
                             <i slot="iconRight" class="fab fa-twitter"></i>
                         </g-input>
                     </g-field>
-                    <g-field :isGrouped="true" type="success">
-                        <g-input v-model="textContoh" shape="sharped" :is-expanded="true">
+                    <g-field :isHorizontal="true" label="Select horizontal">
+                        <g-select v-model="selectValue" shape="rounded"a
+                                 :type="selectValue ? 'success' : 'danger'"
+                                 label="Label select" message="Oke value" placeholder="Pilih nilai yang akan dipilih">
                             <i slot="iconLeft" class="fab fa-facebook"></i>
-                            <i slot="iconRight" class="fab fa-twitter"></i>
-                        </g-input>
-                        <div class="control">
-                            <g-button type="info" position="left" tooltip-text="ialah bangsat">Oke</g-button>
-                        </div>
-                    </g-field>
-                    <g-field :hasAddons="true" type="success" position="right">
-                        <g-input v-model="textContoh" shape="sharped">
-                            <i slot="iconLeft" class="fab fa-facebook"></i>
-                            <i slot="iconRight" class="fab fa-twitter"></i>
-                        </g-input>
-                        <div class="control">
-                            <g-button :isLoading="true" type="info">Oke</g-button>
-                        </div>
+                            <template>
+                                <option v-for="(value, index) in selectValues" :value="value">{{value}}</option>
+                            </template>
+                        </g-select>
                     </g-field>
                 </g-tab-content>
                 <g-tab-content>
@@ -160,6 +159,10 @@
 		private textContoh: string = '';
 
 		private textContoh2: string = '';
+
+		private selectValues: Array<string> = new Array(10).fill('').map((item, index) => 'Value at ' + index);
+
+		private selectValue: string;
 
 		private mounted() {
 			this.doFind();

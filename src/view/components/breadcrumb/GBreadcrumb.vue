@@ -13,12 +13,10 @@
 	import {Component, Vue, Prop} from 'annotation';
 	import GLink from '../link/GLink';
 
-	@Component({
-		components: {GLink}
-	})
+	@Component({components: {GLink}})
 	export default class GBreadcrumb extends Vue {
 
-		@Prop({default: [], required: true})
+		@Prop({default: []})
 		private links: Array<any>;
 
 		@Prop({default: ''})
@@ -37,7 +35,7 @@
 			const separatorClassName = separator ? ('has-' + separator + '-separator') : '';
 
 			return [positionClassName, sizeClassName, separatorClassName]
-				.reduce((accu, item) => accu + (item ? (item + ' ') : ''), 'breadcrumb ');
+				.reduce((accu, item) => accu + (item ? (item + ' ') : ''), 'breadcrumb g-breadcrumb');
 		}
 	}
 </script>

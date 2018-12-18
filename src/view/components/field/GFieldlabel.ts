@@ -3,15 +3,11 @@
  */
 import {Component, Prop, Vue} from "annotation";
 
-const SIZE = ['small', 'medium', 'large', ''];
-
 @Component
 export default class GFieldlabel extends Vue {
 	
 	@Prop({
 		default: '',
-		validator: (val: string) => SIZE.indexOf(val) !== -1
-		
 	})
 	public size: string;
 	

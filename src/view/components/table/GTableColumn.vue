@@ -11,7 +11,7 @@
 	@Component
 	export default class GTableColumn extends Vue {
 
-		@Prop({required: true})
+		@Prop()
 		private label: string;
 
 		@Prop()

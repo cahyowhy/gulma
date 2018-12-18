@@ -33,7 +33,7 @@
 	})
 	export default class GTab extends Mixin(QueryString) {
 
-		@Prop({default: [], required: true})
+		@Prop({default: []})
 		private links: Array<any>;
 
 		@Prop({default: ''})

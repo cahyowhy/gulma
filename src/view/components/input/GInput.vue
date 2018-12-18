@@ -1,15 +1,18 @@
 <!--suppress ALL -->
 <template>
-    <div class="control" :class="controlClassName">
-        <input v-if="inputType !== 'textarea'" :type="inputType"
-               :class="className" :value="newValue" v-bind="$attrs" @input="onInput">
-        <textarea v-else :class="className" :value="newValue" v-bind="$attrs"
-                  @input="onInput"></textarea>
+    <div class="control g-input-wrp" :class="controlClassName">
+        <input v-if="inputType !== 'textarea'" :type="inputType" :class="className" :value="newValue" v-bind="$attrs"
+               @input="onInput" @focus="onFocus" @blur="onBlur" :maxlength="maxlength" ref="input">
+        <textarea v-else :class="className" :value="newValue" v-bind="$attrs" :maxlength="maxlength"
+                  @input="onInput" @focus="onFocus" @blur="onBlur" ref="textarea"></textarea>
         <span v-if="$slots.iconLeft" :class="`icon is-left ${size ? ('is-'+size) : ''}`">
             <slot name="iconLeft"></slot>
         </span>
         <span v-if="$slots.iconRight" :class="`icon is-right ${size ? ('is-'+size) : ''}`">
             <slot name="iconRight"></slot>
+        </span>
+        <span v-if="maxlength && isFocused && (inputType === 'textarea' || inputType === 'text') ">
+            <p class="help count-help">{{countValue}}/{{maxlength}}</p>
         </span>
     </div>
 </template>
@@ -45,6 +48,9 @@
 		@Prop({default: false})
 		private isExpanded: boolean;
 
+		@Prop()
+		private maxlength: any;
+
 		@Watch('value')
 		private onValueChange(value) {
 			this.newValue = value;
@@ -66,6 +72,8 @@
 			return '';
 		}
 
+		private countValue: number = 0;
+
 		private get className() {
 			const {type, size, shape, isFocused, isStatic, alterClassName, inputType}: any = this;
 			const finalClassName = [type, size, shape].reduce((accu, item) => accu + (item ? `is-${item} ` : ''), '');
@@ -84,15 +92,14 @@
 			return [{
 				'is-loading': isLoading,
 				'has-icons-left': iconLeft,
-                'is-expanded': isExpanded,
+				'is-expanded': isExpanded,
 				'has-icons-right': iconRight
 			}, (size ? ('is-' + size) : '')];
 		}
 
 		private onInput(event) {
-			this.$nextTick(() => {
-				this.newValue = event.target.value
-			});
+			this.newValue = event.target.value;
+			this.countValue = event.target.value.length;
 		}
 	}
 </script>

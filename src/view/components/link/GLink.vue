@@ -16,7 +16,7 @@
     @Component
     export default class GLink extends Vue {
 
-        @Prop({default: '/', required: true})
+        @Prop({default: '/'})
         private to: string;
 
         @Prop({default: false})
