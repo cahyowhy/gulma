@@ -20,25 +20,25 @@
 	@Component({components: {'g-fieldlabel': GFieldlabel, 'g-fieldbody': GFieldbody}})
 	export default class GField extends Mixin(FormPropMixins) {
 
-		@Prop({default: ''})
+		@Prop({default: '', type: String})
 		public label: string;
 
-		@Prop({default: ''})
+		@Prop({default: '', type: String})
 		public message: string;
 
-		@Prop({default: false})
+		@Prop({default: false, type: Boolean})
 		public hasAddons: boolean;
 
-		@Prop({default: false})
+		@Prop({default: false, type: Boolean})
 		public isHorizontal: boolean;
 
-		@Prop({default: false})
+		@Prop({default: false, type: Boolean})
 		public isGrouped: boolean;
 
-		@Prop({default: false})
+		@Prop({default: false, type: Boolean})
 		public isNarrow: boolean;
 
-		@Prop({default: false})
+		@Prop({default: false, type: Boolean})
 		public isGroupedMultiline: boolean;
 
 		public isFieldComponent: boolean = true;

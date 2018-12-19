@@ -12,6 +12,8 @@ export default ((ENV: any) => {
   ENV.LOGGER = true;
   
   ENV.USER_API = 'https://randomuser.me/api';
+  
+  ENV.COMPONENT_API_API = '/assets/jsons/component-api/';
 
   return ENV;
 })(BaseEnvironment);

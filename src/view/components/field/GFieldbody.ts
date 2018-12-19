@@ -20,16 +20,19 @@ export default class GFieldbody extends Mixin(FormPropMixins) {
 				return item
 			}
 			
-			const attr = {props: {message, type, isNarrow, size, position, shape}};
+			const attr = {props: {}};
 			if (isNarrow) attr['class'] = 'is-narrow';
 			
-			// set label and message for props like
-			// type (colors), size on field child
-			if (tag === 'g-input' || tag === 'g-select') {
+			// jika direct child > 1 dan merupakan komponen dgn tag dibawah,
+			// apply props dibawah, dari dirinya ke komponen GField yg akan dibuat
+			// dengan syarat $slots.default.length === 1
+			if ((tag === 'g-input' || tag === 'g-select') && this.$slots.default.length > 1) {
 				attr.props['label'] = propsData.label;
 				attr.props['message'] = propsData.message;
 				attr.props['type'] = propsData.type;
 				attr.props['size'] = propsData.size;
+			} else {
+				attr.props = {message, type, isNarrow, size, position, shape};
 			}
 			
 			return createElement(GField, attr, [item]);

@@ -7,16 +7,16 @@ import {Component, Vue, Prop} from 'annotation';
 @Component
 export default class FormPropMixins extends Vue {
 	
-	@Prop({default: ''})
+	@Prop({type: String, default: ''})
 	public size: string;
 	
-	@Prop({default: ''})
+	@Prop({type: String, default: ''})
 	public type: string;
 	
-	@Prop({default: ''})
+	@Prop({type: String, default: ''})
 	public position: string;
 	
-	@Prop({default: ''})
+	@Prop({type: String, default: ''})
 	public shape: string;
 	
 	public isFocused: boolean = false;

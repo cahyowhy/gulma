@@ -124,19 +124,7 @@
 		private narrow: boolean;
 		
 		@Prop({default: false})
-		private success: boolean;
-		
-		@Prop({default: false})
-		private info: boolean;
-		
-		@Prop({default: false})
-		private warning: boolean;
-		
-		@Prop({default: false})
-		private danger: boolean;
-		
-		@Prop({default: false})
-		private fullWidth: boolean;
+		private isFullwidth: boolean;
 		
 		@Prop({default: false})
 		private hoverable: boolean;
@@ -147,7 +135,7 @@
 		@Prop({default: []})
 		private columns: Array<string>;
 		
-		@Prop({default: true})
+		@Prop({default: false})
 		private showNumbering: boolean;
 		
 		@Prop({default: false})
@@ -155,6 +143,9 @@
 		
 		@Prop({default: []})
 		private datas: Array<any>;
+
+		@Prop({default: ''})
+		private type: string;
 		
 		private datasCloned: Array<any> = [];
 
@@ -221,24 +212,17 @@
 		}
 		
 		private get classNames() {
-			const {bordered, striped, narrow, fullWidth, hoverable, responsiveTable} = this;
+			const {bordered, striped, narrow, isFullwidth, hoverable, responsiveTable} = this;
 			
 			return {
 				'is-narrow': narrow, 'is-striped': striped,
-				'is-bordered': bordered, 'is-fullwidth': fullWidth,
+				'is-bordered': bordered, 'is-fullwidth': isFullwidth,
 				'is-hoverable': hoverable, 'has-responsive-table': responsiveTable
 			}
 		}
 		
 		private get headerClassName() {
-			const {info, warning, danger, success} = this;
-			
-			return {
-				'is-info': info,
-				'is-warning': warning,
-				'is-danger': danger,
-				'is-success': success
-			}
+			return this.type ? ('is-' + this.type) : '';
 		}
 
 		private expandDetail(index) {

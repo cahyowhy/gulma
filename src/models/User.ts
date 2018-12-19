@@ -2,39 +2,31 @@
  *  Created by cahyo on 06/20/2018.
  */
 
-import {deserialize, serialize} from "cerialize";
+import {deserialize} from "cerialize";
 
 export default class User {
 	
-	@serialize
 	@deserialize
 	public gender: string = "";
 	
-	@serialize
 	@deserialize
 	public name: string = "";
 	
-	@serialize
 	@deserialize
 	public location: string = "";
 	
-	@serialize
 	@deserialize
 	public email: string = "";
 	
-	@serialize
 	@deserialize
 	public dob: any = {date: '', age: 0};
 	
-	@serialize
 	@deserialize
 	public picture: string = "";
 	
-	@serialize
 	@deserialize
 	public phone: string = "";
 	
-	@serialize
 	@deserialize
 	public cell: string = "";
 	

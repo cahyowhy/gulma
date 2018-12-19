@@ -11,8 +11,8 @@
             <template slot-scope="{index, active}">
                 <g-tab-content>
                     <g-table :isLoading="isLoading" :columns="columns" :bordered="true" :datas="userDatas"
-                             :fullWidth="true"
-                             :info="true" :usePaging="true" :perPage="perpage" :totalData="100" @changePage="doFind()">
+                             is-full-width
+                             :info="true" use-paging :perPage="perpage" :totalData="100" @changePage="doFind()">
                         <template slot-scope="{data, index, currentPage}">
                             <g-table-column :position="columns[0].position" :label="columns[0].name">
                                 <div class="user-info-wrapper">
