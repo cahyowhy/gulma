@@ -170,7 +170,7 @@
         $color: nth($pair, 1);
         $color-invert: nth($pair, 2);
         background-color: $color;
-        th a span {
+        th, th a span {
           color: $color-invert;
         }
         .icon-arrow {
@@ -273,5 +273,8 @@
       transform: translate(-50%, -50%);
       color: $info;
     }
+  }
+  .pagination-list li {
+    list-style: none;
   }
 }

@@ -12,7 +12,7 @@
         <p>All examples on this page refer to bulma <a href="https://bulma.io/documentation/form/general/"
                                                        target="_blank">Form control</a> page
         </p>
-        <gist-wrapper gist-id="adff0c6fb889112f7bcb6b9b62770bad" :isHorizontal="true"
+        <gist-wrapper gist-id="adff0c6fb889112f7bcb6b9b62770bad" is-horizontal
                       file="basicform.vue" title="Basic Form field">
             <template>
                 <form>
@@ -63,7 +63,7 @@
             </template>
         </gist-wrapper>
 
-        <gist-wrapper gist-id="148b7a3f3dab18641de8a2de1c707d1e" :isHorizontal="true"
+        <gist-wrapper gist-id="148b7a3f3dab18641de8a2de1c707d1e" is-horizontal
                       file="colorstypeform.vue" title="Colors type and Form size">
             <template>
                 <form>
@@ -328,24 +328,25 @@
             </template>
         </gist-wrapper>
 
-        <h2 class="title is-4">API</h2>
-
-        <g-table :columns="columns" type="info" :datas="datas" full-width bordered>
-            <template slot-scope="{data, index, currentPage}">
-                <g-table-column><div class="content" v-html="data.name"></div></g-table-column>
-                <g-table-column><div class="content" v-html="data.description"></div></g-table-column>
-                <g-table-column><div class="content" v-html="data.type"></div></g-table-column>
-                <g-table-column><div class="content" v-html="data.values"></div></g-table-column>
-                <g-table-column><div class="content" v-html="data.defaultValue"></div></g-table-column>
-            </template>
-        </g-table>
+        <div class="content-api-wrapper">
+            <h2 class="title is-4">API</h2>
+            <g-table :columns="columns" type="info" :datas="datas" full-width bordered>
+                <template slot-scope="{data, index, currentPage}">
+                    <g-table-column><div class="content" v-html="data.name"></div></g-table-column>
+                    <g-table-column><div class="content" v-html="data.description"></div></g-table-column>
+                    <g-table-column><div class="content" v-html="data.type"></div></g-table-column>
+                    <g-table-column><div class="content" v-html="data.values"></div></g-table-column>
+                    <g-table-column><div class="content" v-html="data.defaultValue"></div></g-table-column>
+                </template>
+            </g-table>
+        </div>
     </page-container>
 </template>
 
 <script lang="ts">
 	import {Component, Vue, MetaTag, Inject} from "annotation";
 	import DefaultMeta from '../../../util/DefaultMeta';
-	import ComponentApi from '../../../models/ComponentApi';
+	import ComponentApiProps from '../../../models/ComponentApiProps';
 	import ComponentApiService from '../../../service/ComponentApiService';
 
 	const TITLE = 'Gulma | Components | Form field';
@@ -372,7 +373,7 @@
 
 		private radioButton1: string = 'no';
 
-		private columns: Array<any> = ComponentApi.Columns();
+		private columns: Array<any> = ComponentApiProps.Columns();
 
 		private datas: Array<any> = [];
 
@@ -382,8 +383,8 @@
 
 		private async doFind() {
 			const [err, datas] = await this.componentApiService.find('g-field.json');
-			if (!err) {
-				this.datas = datas;
+			if (!err && datas.props && datas.props.length) {
+				this.datas = datas.props;
 			}
 		}
 	}

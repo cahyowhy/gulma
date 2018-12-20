@@ -3,9 +3,9 @@
     <th :class="sorting ? 'has-pointer' : ''"
         :style="width ? `width:${width}px` : false">
         <div class="inner-th" :class="position ? `has-text-${position}` : ''">
-            <a @click="$emit('click')">
-                <slot></slot>
-                <span v-if="sorting" :class="`icon-arrow ${isSortAscending ? '' : 'is-up'}`"></span>
+            <a @click="onSorting">
+                <span><slot></slot></span>
+                <span v-if="currentSorting == thIndex" :class="`icon-arrow ${isSortAscending ? '' : 'is-up'}`"></span>
             </a>
         </div>
     </th>
@@ -20,13 +20,38 @@
 		@Prop({default: false})
 		private sorting: boolean;
 
-		@Prop({default: true})
-		private isSortAscending: boolean;
-
-		@Prop()
+		@Prop({type: String})
 		private position: string;
 
-		@Prop()
-		private width: string;
+		@Prop({type: String})
+		private thKey: string;
+
+		@Prop([String, Number])
+		private width!: string | number;
+
+		@Prop([String, Number])
+		private thIndex!: string | number;
+
+		private get currentSorting() {
+			if (this.$parent.isTableComponent) {
+				return this.$parent.currentSorting;
+			}
+
+			return null;
+		}
+
+		private get isSortAscending() {
+			if (this.$parent.isTableComponent) {
+				return this.$parent.isSortAscending || false;
+			}
+
+			return false;
+		}
+
+		private onSorting() {
+			if (this.$parent.isTableComponent && this.sorting && this.thKey) {
+				this.$parent.onSortBy(this.thIndex, this.thKey);
+			}
+		}
 	}
 </script>

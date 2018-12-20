@@ -16,7 +16,8 @@ export default [
 			{path: '/', component: loadPage('Index')},
 			{
 				path: 'documentation', component: loadPage('Documentation'), children: [
-					{path: 'form-field', component: loadPage('documentations/FormField')}
+					{path: 'form-field', component: loadPage('documentations/ComponentField')},
+					{path: 'table', component: loadPage('documentations/ComponentTable')},
 				]
 			},
 		]

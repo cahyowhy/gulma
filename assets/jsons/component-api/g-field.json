@@ -1,79 +1,81 @@
-[
-  {
-    "name": "<span class='tag'>label</span>",
-    "description": "<p>Field label</p>",
-    "type": "String",
-    "values": "-",
-    "defaultValue": "''"
-  },
-  {
-    "name": "<span class='tag'>message</span>",
-    "description": "<p>A help text</p>",
-    "type": "String",
-    "values": "-",
-    "defaultValue": "''"
-  },
-  {
-    "name": "<span class='tag'>has-addons</span>",
-    "description": "<p><span class='tag'>has-addons</span> modifier for form component</p>",
-    "type": "Boolean",
-    "values": "-",
-    "defaultValue": "false"
-  },
-  {
-    "name": "<span class='tag'>is-horizontal</span>",
-    "description": "<p>Controlling field and label for horizontal position</p>",
-    "type": "Boolean",
-    "values": "-",
-    "defaultValue": "false"
-  },
-  {
-    "name": "<span class='tag'>is-grouped</span>",
-    "description": "<p>Groping some controls together</p>",
-    "type": "Boolean",
-    "values": "-",
-    "defaultValue": "false"
-  },
-  {
-    "name": "<span class='tag'>is-narrow</span>",
-    "description": "<p>Used to narrowed controls. Use it with <span class='tag'>is-horizontal</span></p>",
-    "type": "Boolean",
-    "values": "-",
-    "defaultValue": "false"
-  },
-  {
-    "name": "<span class='tag'>is-grouped-multiline</span>",
-    "description": "<p>Used it with <span class='tag'>is-grouped</span> attribute. To allow controls to fill up multiple lines.</p>",
-    "type": "Boolean",
-    "values": "-",
-    "defaultValue": "false"
-  },
-  {
-    "name": "<span class='tag'>size</span>",
-    "description": "<p>Used to adjust size of label. And will be applied to form component inside it. If the child is direct child of <span class='tag'>g-field</span></p>",
-    "type": "String",
-    "values": "<p><span class='tag'>small</span>, <span class='tag'>medium</span>, <span class='tag'>large</span>. The value is same as the css size class applied to the bulma without using `is` prefix</p>",
-    "defaultValue": "''"
-  },
-  {
-    "name": "<span class='tag'>type</span>",
-    "description": "<p>Used to adjust colors of help message. And will be applied to form component inside it. If the child is direct child of <span class='tag'>g-field</span></p>",
-    "type": "String",
-    "values": "<p><span class='tag'>info</span>, <span class='tag'>danger</span>, <span class='tag'>warning</span>, <span class='tag'>success</span>, <span class='tag'>primary</span>, <span class='tag'>etc</span>. The value is same as the css colors class applied to the bulma without using `is` prefix</p>",
-    "defaultValue": "-"
-  },
-  {
-    "name": "<span class='tag'>position</span>",
-    "description": "<p>Used to positioning child of the <span class='tag'>g-field</span> component. Used it with <span class='tag'>has-addons</span> & <span class='tag'>is-grouped</span> properties</p>",
-    "type": "String",
-    "values": "<p><span class='tag'>centered</span>, <span class='tag'>right</span>",
-    "defaultValue": "''"
-  },
-  {
-    "name": "<span class='tag'>shape</span>",
-    "description": "<p>Used to formatting the child of <span class='tag'>g-field</span> component</p>. Work with <span class='tag'>g-input</span> & <span class='tag'>g-select</span>",
-    "type": "String",
-    "values": "<p><span class='tag'>sharped</span>, <span class='tag'>rounded</span>",
-    "defaultValue": "''"
-  }
-]
+{
+  "props": [
+    {
+      "name": "<span class='tag'>label</span>",
+      "description": "<p>Field label</p>",
+      "type": "String",
+      "values": "-",
+      "defaultValue": "''"
+    },
+    {
+      "name": "<span class='tag'>message</span>",
+      "description": "<p>A help text</p>",
+      "type": "String",
+      "values": "-",
+      "defaultValue": "''"
+    },
+    {
+      "name": "<span class='tag'>has-addons</span>",
+      "description": "<p><span class='tag'>has-addons</span> modifier for form component</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>is-horizontal</span>",
+      "description": "<p>Controlling field and label for horizontal position</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>is-grouped</span>",
+      "description": "<p>Groping some controls together</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>is-narrow</span>",
+      "description": "<p>Used to narrowed controls. Use it with <span class='tag'>is-horizontal</span></p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>is-grouped-multiline</span>",
+      "description": "<p>Used it with <span class='tag'>is-grouped</span> attribute. To allow controls to fill up multiple lines.</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>size</span>",
+      "description": "<p>Used to adjust size of label. And will be applied to form component inside it. If the child is direct child of <span class='tag'>g-field</span></p>",
+      "type": "String",
+      "values": "<p><span class='tag'>small</span>, <span class='tag'>medium</span>, <span class='tag'>large</span>. The value is same as the css size class applied to the bulma without using `is` prefix</p>",
+      "defaultValue": "''"
+    },
+    {
+      "name": "<span class='tag'>type</span>",
+      "description": "<p>Used to adjust colors of help message. And will be applied to form component inside it. If the child is direct child of <span class='tag'>g-field</span></p>",
+      "type": "String",
+      "values": "<p><span class='tag'>info</span>, <span class='tag'>danger</span>, <span class='tag'>warning</span>, <span class='tag'>success</span>, <span class='tag'>primary</span>, <span class='tag'>etc</span>. The value is same as the css colors class applied to the bulma without using `is` prefix</p>",
+      "defaultValue": "-"
+    },
+    {
+      "name": "<span class='tag'>position</span>",
+      "description": "<p>Used to positioning child of the <span class='tag'>g-field</span> component. Used it with <span class='tag'>has-addons</span> & <span class='tag'>is-grouped</span> properties</p>",
+      "type": "String",
+      "values": "<p><span class='tag'>centered</span>, <span class='tag'>right</span>",
+      "defaultValue": "''"
+    },
+    {
+      "name": "<span class='tag'>shape</span>",
+      "description": "<p>Used to formatting the child of <span class='tag'>g-field</span> component</p>. Work with <span class='tag'>g-input</span> & <span class='tag'>g-select</span>",
+      "type": "String",
+      "values": "<p><span class='tag'>sharped</span>, <span class='tag'>rounded</span>",
+      "defaultValue": "''"
+    }
+  ]
+}

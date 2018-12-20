@@ -4,3 +4,12 @@
   margin-left: 30px !important;
   margin-right: 30px !important;
 }
+
+.page-container .content-api-wrapper {
+  margin-top: 2rem;
+  .g-tab {
+    ul, ul li {
+      margin: 0 !important;
+    }
+  }
+}

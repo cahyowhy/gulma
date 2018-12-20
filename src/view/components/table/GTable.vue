@@ -6,8 +6,8 @@
         </div>
         <table class="table" :class="classNames">
             <thead :class="headerClassName">
-            <slot name="thead" v-if="$scopedSlots.thead || $slots.thead" :currentSorting="currentSorting"
-                  :colSpan="colSpan" :sortFn="onSortBy" :isSortAscending="isSortAscending"/>
+            <slot name="thead" v-if="$scopedSlots.thead || $slots.thead"
+                  :colSpan="colSpan"/>
             <tr v-else>
                 <th v-if="showNumbering">
                     <div class="inner-th has-text-centered">
@@ -17,11 +17,9 @@
                     </div>
                 </th>
                 <template v-for="(column, index) in columns">
-                    <g-table-column-head :sorting="column.sorting && currentSorting === index"
-                                         :width="column.width" :position="column.position"
-                                         :isSortAscending="isSortAscending"
-                                         @click="() => column.sorting ? onSortBy(index, column.key) : null">
-                        <span>{{column.name}}</span>
+                    <g-table-column-head :sorting="column.sorting" :th-index="index" :width="column.width"
+                                         :position="column.position" :th-key="column.key">
+                        {{column.name}}
                     </g-table-column-head>
                 </template>
             </tr>
@@ -69,7 +67,7 @@
             </template>
             </tbody>
         </table>
-        <div v-if="usePaging" class="level">
+        <div v-if="usePaging && datasCloned.length" class="level">
             <div class="level-left"></div>
             <div class="level-right">
                 <nav class="pagination">
@@ -157,6 +155,8 @@
 
 		private forceRenderDetail: boolean = true;
 
+		private isTableComponent: boolean = true;
+
 		@Watch('datas', {immediate: true})
 		private onDataChange(datas) {
 			this.datasCloned = datas.map((item, index) => {
@@ -176,7 +176,9 @@
 		}
 
 		private applyPagination() {
-			const {start, end, frontEndPagination} = this.pageRange;
+			const {start, end} = this.pageRange;
+			const {frontEndPagination, perPage, usePaging} = this;
+
 			if (frontEndPagination && perPage && usePaging) {
 				this.datasCloned.map((item, index) => {
 					item.visible = index >= start && index < end;

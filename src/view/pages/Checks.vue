@@ -11,8 +11,8 @@
             <template slot-scope="{index, active}">
                 <g-tab-content>
                     <g-table :isLoading="isLoading" :columns="columns" :bordered="true" :datas="userDatas"
-                             is-full-width
-                             :info="true" use-paging :perPage="perpage" :totalData="100" @changePage="doFind()">
+                             is-full-width :info="true" use-paging :perPage="perpage" :totalData="100"
+                             @changePage="doFind()">
                         <template slot-scope="{data, index, currentPage}">
                             <g-table-column :position="columns[0].position" :label="columns[0].name">
                                 <div class="user-info-wrapper">
@@ -103,9 +103,9 @@
                         </g-input>
                     </g-field>
                     <g-field :isHorizontal="true" label="Select horizontal">
-                        <g-select v-model="selectValue" shape="rounded"a
-                                 :type="selectValue ? 'success' : 'danger'"
-                                 label="Label select" message="Oke value" placeholder="Pilih nilai yang akan dipilih">
+                        <g-select v-model="selectValue" shape="rounded" a
+                                  :type="selectValue ? 'success' : 'danger'"
+                                  label="Label select" message="Oke value" placeholder="Pilih nilai yang akan dipilih">
                             <i slot="iconLeft" class="fab fa-facebook"></i>
                             <template>
                                 <option v-for="(value, index) in selectValues" :value="value">{{value}}</option>

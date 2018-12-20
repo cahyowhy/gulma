@@ -4,7 +4,7 @@
 
 import {deserialize} from "cerialize";
 
-export default class ComponentApi {
+export default class ComponentApiProps {
 	
 	@deserialize
 	private name: string = '';

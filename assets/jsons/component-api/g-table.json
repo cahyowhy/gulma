@@ -1,0 +1,120 @@
+{
+  "props": [
+    {
+      "name": "<span class='tag'>bordered</span>",
+      "description": "<p>Apply border to the table</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>stripped</span>",
+      "description": "<p>Apply stripes to the table</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>narrow</span>",
+      "description": "<p>Make cell narrower</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>isFullwidth</span>",
+      "description": "<p>Apply Fullwidth table</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>hoverable</span>",
+      "description": "<p>Applying hover effect to each row</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>responsive-table</span>",
+      "description": "<p>Make table responsive on <768px screen size</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "true"
+    },
+    {
+      "name": "<span class='tag'>columns</span>",
+      "description": "<p>Used to format columns</p>",
+      "type": "Array",
+      "values": "-",
+      "defaultValue": "[]"
+    },
+    {
+      "name": "<span class='tag'>show-numbering</span>",
+      "description": "<p>If applied will add column number to each row</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>is-loading</span>",
+      "description": "<p>Display spinner while loading</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>datas</span>",
+      "description": "<p>The datas who needs to be displayed to table</p>",
+      "type": "Array",
+      "values": "-",
+      "defaultValue": "[]"
+    },
+    {
+      "name": "<span class='tag'>type</span>",
+      "description": "<p>Used to coloring the header</p>",
+      "type": "String",
+      "values": "<p><span class='tag'>info</span>, <span class='tag'>success</span>, <span class='tag'>warning</span>, <span class='tag'>danger</span> and <span class='tag'>dark</span></p>",
+      "defaultValue": "''"
+    },
+    {
+      "name": "<span class='tag'>per-page</span>",
+      "description": "<p>Maximum total data displayed per page</p>",
+      "type": "Number",
+      "values": "-",
+      "defaultValue": "0"
+    },
+    {
+      "name": "<span class='tag'>front-end-pagination</span>",
+      "description": "<p>Use this when you don't implement the changePage event to replace the <span>datas</span></p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>use-paging</span>",
+      "description": "<p>Display pagination below the table</p>",
+      "type": "Boolean",
+      "values": "-",
+      "defaultValue": "false"
+    },
+    {
+      "name": "<span class='tag'>total-data</span>",
+      "description": "<p>Total data / <span class='tag'>datas.length</span></p>",
+      "values": "-",
+      "defaultValue": "1"
+    }
+  ],
+  "events": [
+    {
+      "name": "<span class='tag'>changePage</span>",
+      "description": "<p>Triggers when paging button clicked</p>",
+      "parameters": "<p><span class='tag'>page: Number</span></p>"
+    },
+    {
+      "name": "<span class='tag'>sort</span>",
+      "description": "<p>Triggers when sorting button in thead clicked</p>",
+      "parameters": "<p><span class='tag'>sort: String(asc | desc)</span>, <span class='tag'>key: String</span></p>"
+    }
+  ]
+}
